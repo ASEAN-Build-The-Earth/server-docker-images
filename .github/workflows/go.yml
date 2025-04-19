@@ -1,13 +1,6 @@
 name: build go
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "0 0 1 * *"
-  push:
-    branches:
-      - master
-    paths:
-      - go/**
 jobs:
   push:
     name: "yolks:go_${{ matrix.tag }}"

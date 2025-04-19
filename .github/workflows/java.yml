@@ -1,13 +1,8 @@
 name: build java
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "0 0 1 * *"
-  push:
-    branches:
-      - master
-    paths:
-      - java/**
+  release:
+    types: [published]
 jobs:
   push:
     name: "yolks:java_${{ matrix.tag }}"
@@ -16,18 +11,19 @@ jobs:
       fail-fast: false
       matrix:
         tag:
-          - 8
-          - 8j9
-          - 11
-          - 11j9
-          - 16
-          - 17
-          - 17j9
-          - 18
-          - 18j9
-          - 19
-          - 19j9
-          - 21
+           - chromium_java_21
+        #  - 8
+        #  - 8j9
+        #  - 11
+        #  - 11j9
+        #  - 16
+        #  - 17
+        #  - 17j9
+        #  - 18
+        #  - 18j9
+        #  - 19
+        #  - 19j9
+        #  - 21
     steps:
       - uses: actions/checkout@v4
       - uses: docker/setup-qemu-action@v3
@@ -38,14 +34,13 @@ jobs:
           buildkitd-flags: --debug
       - uses: docker/login-action@v3
         with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
       - uses: docker/build-push-action@v4
         with:
           context: ./java
-          file: ./java/${{ matrix.tag }}/Dockerfile
+          file: ./java/asean/${{ matrix.tag }}/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ghcr.io/pterodactyl/yolks:java_${{ matrix.tag }}
+            tintinkung/aseanbte-server:${{ matrix.tag }}
