@@ -18,7 +18,7 @@ RUN         apt update \
                 libxcomposite1 \
                 libxdamage1 \
                 libatspi2.0-0 \
-	&& adduser -D -h /home/container -m container
+	&& useradd -D -h /home/container -m container
 
 USER        container
 ENV         USER=container HOME=/home/container
