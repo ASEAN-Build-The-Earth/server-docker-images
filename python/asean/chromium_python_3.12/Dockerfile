@@ -4,7 +4,7 @@ FROM        --platform=$TARGETOS/$TARGETARCH python:3.12-slim-bookworm
 
 LABEL       author="Matthew Penner" maintainer="matthew@pterodactyl.io"
 
-LABEL       org.opencontainers.image.source="https://github.com/pterodactyl/yolks"
+LABEL       org.opencontainers.image.source="https://github.com/ASEAN-Build-The-Earth/server-docker-images"
 LABEL       org.opencontainers.image.licenses=MIT
 
 RUN         apt update \
@@ -18,11 +18,15 @@ RUN         apt update \
                 libxcomposite1 \
                 libxdamage1 \
                 libatspi2.0-0 \
-	&& adduser -D -h /home/container container
+	&& adduser -D -h /home/container -m container
 
 USER        container
 ENV         USER=container HOME=/home/container
 WORKDIR     /home/container
 
-COPY        ./../entrypoint.sh /entrypoint.sh
-CMD         [ "/usr/bin/tini", "/entrypoint.sh" ]
+STOPSIGNAL SIGINT
+
+COPY        --chown=container:container ./../entrypoint.sh /entrypoint.sh
+RUN         chmod +x /entrypoint.sh
+ENTRYPOINT  ["/usr/bin/tini", "-g", "--"]
+CMD         ["/entrypoint.sh"]
