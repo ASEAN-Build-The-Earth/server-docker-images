@@ -10,7 +10,7 @@ LABEL       org.opencontainers.image.licenses=MIT
 RUN         apt update \
             && apt -y install git gcc g++ ca-certificates dnsutils curl iproute2 ffmpeg procps tini \
                 # Headless Chromium dependencies
-				libasound2t64 libatk-bridge2.0-0 libatk1.0-0 libatspi2.0-0 libcups2 \
+				libasound2 libatk-bridge2.0-0 libatk1.0-0 libatspi2.0-0 libcups2 \
 				libdbus-1-3 libdrm2 libegl1 libgbm1 libglib2.0-0 libgtk-3-0 libnspr4 \
 				libnss3 libpango-1.0-0 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 \
 				libxdamage1 libxext6 libxfixes3 libxrandr2 libxshmfence1 libxrender1 \
