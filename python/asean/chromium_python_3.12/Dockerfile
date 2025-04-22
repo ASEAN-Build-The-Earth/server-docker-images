@@ -18,6 +18,7 @@ RUN         apt update \
                 libxcomposite1 \
                 libxdamage1 \
                 libatspi2.0-0 \
+				libgtk-3-0 \
 	&& useradd -m -d /home/container container
 
 USER        container
